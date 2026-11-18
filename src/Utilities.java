@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Utilities {
     public static int readValidInt(int min, int max, int[] invalid) {
         int read = 0;
@@ -71,5 +73,29 @@ public class Utilities {
 
         System.out.println();
         return read;
+    }
+
+    // Returns an array of indexes at which the city value
+    // for the specified type is equal to "value".
+    // Ex.: filterString(cities, 2, "RS")
+    // -> returns an array of indexes at which the city's
+    // UF is equal to "RS".
+    public static ArrayList<Integer> filterString(String[][][] cities, int type, String value){
+        ArrayList<Integer> indexes = new ArrayList<>();
+
+        boolean ok = false;
+        int[] validTypes = {1, 2, 3, 9};
+        for(int i : validTypes)
+            if(type == i) 
+                ok = true;
+        if(!ok)
+            return indexes;    
+        
+        for(int i=0; i<cities.length; i++) {
+            if(cities[i][type][0].equals(value))
+                indexes.add(i);
+        }
+
+        return indexes;
     }
 }
