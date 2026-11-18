@@ -7,11 +7,12 @@ import java.util.Scanner;
 public class Main {
     static String file = "../database/brazilian_cities_data.csv"; 
     static Scanner scan = new Scanner(System.in);
-
+    
     public static void exit(){
         System.out.println("\n=== Obrigado por utilizar! ===\n");
         scan.close();
     }
+    
     public static void main(String[] args) {
         String DBName = null;
         int qttCities = 0;
