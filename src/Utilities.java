@@ -75,6 +75,25 @@ public class Utilities {
         return read;
     }
 
+    public static int readValidType(){
+        System.out.println("== Escolha uma categoria ==");
+        System.out.println(" 1. Índice na lista");
+        System.out.println(" 2. País");
+        System.out.println(" 3. Estado");
+        System.out.println(" 4. Microrregião");
+        System.out.println(" 5. Município");
+        System.out.println(" 6. Extensão territorial");
+        System.out.println(" 7. População");
+        System.out.println(" 8. IDH");
+        System.out.println(" 9. PIB");
+        System.out.println("10. Atividade econômica");
+        System.out.println("11. Renda média");
+        System.out.println("12. Faixa etária");
+        System.out.println("13. Quantidade de mulheres");
+
+        return readValidInt(1, 13, null);
+    }
+
     // Returns an array of indexes at which the city value
     // for the specified type is equal to "value".
     // Ex.: filterString(cities, 2, "RS")

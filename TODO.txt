@@ -12,4 +12,4 @@ Por região:
 Relatório completo por cidade:
     Dados básicos,
     Relação Mulheres X Renda média,
-    Comparação com a média das cidades da microrregião
+    // Comparação com a média das cidades da microrregião

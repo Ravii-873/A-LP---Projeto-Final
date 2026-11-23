@@ -47,6 +47,8 @@ public class Main {
             System.out.println("Erro na leitura do arquivo de dados!");
         }
 
+        Report.printCityReport(cities, 0);
+
         exit();
     }
 }
