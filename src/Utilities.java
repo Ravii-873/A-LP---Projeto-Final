@@ -75,6 +75,21 @@ public class Utilities {
         return read;
     }
 
+    public static char readValidSN(){
+        char op = 'x';
+        while (op != 's' && op != 'n') {
+            System.out.println("..........: ");
+            op = Main.scan.nextLine().charAt(0);
+            op = Character.toLowerCase(op);
+            if(op != 's' && op != 'n'){
+                System.out.println("Opção inválida, insira apenas 'S' ou 'N'.");
+                System.out.print("Tente novamente ");
+            }
+        }
+
+        return op;
+    }
+
     public static int readValidType(){
         System.out.println("== Escolha uma categoria ==");
         System.out.println(" 1. Índice na lista");
@@ -99,11 +114,11 @@ public class Utilities {
     // Ex.: filterString(cities, 2, "RS")
     // -> returns an array of indexes at which the city's
     // UF is equal to "RS".
-    public static ArrayList<Integer> filterString(String[][][] cities, int type, String value){
+    public static ArrayList<Integer> filterType(String[][][] cities, int type, String value){
         ArrayList<Integer> indexes = new ArrayList<>();
 
         boolean ok = false;
-        int[] validTypes = {1, 2, 3, 9};
+        int[] validTypes = {0, 1, 2, 3, 4, 9};
         for(int i : validTypes)
             if(type == i) 
                 ok = true;
@@ -111,7 +126,7 @@ public class Utilities {
             return indexes;    
         
         for(int i=0; i<cities.length; i++) {
-            if(cities[i][type][0].equals(value))
+            if(cities[i][type][0].equalsIgnoreCase(value))
                 indexes.add(i);
         }
 
