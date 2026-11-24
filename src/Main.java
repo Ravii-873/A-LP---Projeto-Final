@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
-    static String file = "../database/brazilian_cities_data.csv"; 
+    static String file = "../database/latin_cities_data.csv"; 
     static Scanner scan = new Scanner(System.in);
     static int[] emptyIntArray = {};
     
