@@ -116,19 +116,25 @@ public class Main {
                     break;
                 }
                 case 3:{
+                    System.out.println("\n=== Insira o nome da UF ===");
+                    String state = scan.nextLine();
+                    ArrayList<Integer> arrStatesIndexes = Utilities.filterType(cities, 2, state);
+                    if(arrStatesIndexes.size() == 0){
+                        System.out.println("  Esta UF não foi encontrada na base de dados!");
+                        break;
+                    }
     
+                    Report.printRegionReport(cities, arrStatesIndexes, 2);
+
                     break;
                 }
                 case 4:{
+                    ArrayList<Integer> arrIndexes = new ArrayList<>();
+                    for(int i=0; i<qttCities; i++)
+                        arrIndexes.add(i);
     
-                    break;
-                }
-                case 5:{
-    
-                    break;
-                }
-                case 6:{
-    
+                    Report.printRegionReport(cities, arrIndexes, 0);
+
                     break;
                 }
                 case 0:{
