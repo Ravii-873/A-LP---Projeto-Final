@@ -9,7 +9,7 @@ public class Report {
         double GDP = Double.parseDouble(city[8][0]);
         double avgIncome = Double.parseDouble(city[10][0]);
         int women = Integer.parseInt(city[12][0]);
-        
+
         int predominantAgeGroup = 0;
         for(int i=0; i<city[11].length; i++){
             double percentage = Double.parseDouble(city[11][i]);
@@ -44,19 +44,19 @@ public class Report {
 
         double totalPayroll = population * avgIncome / 1e6;
 
-        System.out.println("\n=== Relatório completo de " + city[4][0] + " ===\n");
+        System.out.printf("\n=== Relatório completo de %s ===\n\n", city[4][0]);
         System.out.println("-- Dados obtidos --\n");
-        System.out.println("  Índice na lista ..........: " + city[0][0]);
-        System.out.println("  País .....................: " + city[1][0]);
-        System.out.println("  Estado ...................: " + city[2][0]);
-        System.out.println("  Microrregião .............: " + city[3][0]);
-        System.out.println("  Município ................: " + city[4][0]);
-        System.out.printf("  Extensão territorial .....: %.2fkm²\n", area);
-        System.out.println("  População ................: " + population + " hab");
+        System.out.printf("  Índice na lista ..........: %s\n", city[0][0]);
+        System.out.printf("  País .....................: %s\n", city[1][0]);
+        System.out.printf("  Estado ...................: %s\n", city[2][0]);
+        System.out.printf("  Microrregião .............: %s\n", city[3][0]);
+        System.out.printf("  Município ................: %s\n", city[4][0]);
+        System.out.printf("  Extensão territorial .....: %,.2fkm²\n", area);
+        System.out.printf("  População ................: %,d hab\n", population);
         System.out.printf("  IDH ......................: %.3f\n", HDI);
-        System.out.printf("  PIB ......................: R$%.2f mi\n", GDP);
-        System.out.println("  Atividade econômica ......: " + city[9][0]);
-        System.out.printf("  Renda média ..............: R$%.2f\n", avgIncome);
+        System.out.printf("  PIB ......................: R$%,.2f mi\n", GDP);
+        System.out.printf("  Atividade econômica ......: %s\n", city[9][0]);
+        System.out.printf("  Renda média ..............: R$%,.2f\n", avgIncome);
         System.out.println("  Faixas etárias (anos):");
         for(int i=0; i<city[11].length; i++){
             double percentage = Double.parseDouble(city[11][i]);
@@ -65,23 +65,23 @@ public class Report {
             else
                 System.out.printf("    %d ou mais: %.2f%%\n", 2*i, percentage);
         }
-        System.out.println("  Quantidade de mulheres ...: " + women);
+        System.out.printf("  Quantidade de mulheres ...: %,d\n", women);
         System.out.println();
 
         System.out.println("-- Análise dos dados --\n");
-        System.out.printf("  Densidade demográfica ....: %.2f hab/km²\n", density);
-        System.out.printf("  PIB per capita ...........: R$%.2f\n", GDPPerCapita);
-        System.out.printf("  PIB por km² ..............: R$%.3f mi\n", GDPPerKm);
+        System.out.printf("  Densidade demográfica ....: %,.2f hab/km²\n", density);
+        System.out.printf("  PIB per capita ...........: R$%,.2f\n", GDPPerCapita);
+        System.out.printf("  PIB por km² ..............: R$%,.3f mi\n", GDPPerKm);
         System.out.printf("  %.2f%% Homens X Mulheres %.2f%%\n", menPercentage, womenPercentage);
-        System.out.printf("  Classificação do IDH (%.3f): %s", HDI, HDIClassfication);
-        
+        System.out.printf("  Classificação do IDH (%.3f): %s\n", HDI, HDIClassfication);
+
         System.out.println("\n  Análise das faixas etárias:");
         System.out.printf("    Crianças e adolescentes ...: %.2f%%\n", minor);
         System.out.printf("    Adultos ...................: %.2f%%\n", adult);
         System.out.printf("    Idosos ....................: %.2f%%\n", elderly);
-        System.out.println("    Faixa etária predominante: " + predominantAGBand + " anos\n");
+        System.out.printf("    Faixa etária predominante: %s anos\n\n", predominantAGBand);
 
-        System.out.printf("  Massa salarial estimada...: R$%.3f mi\n", totalPayroll);
+        System.out.printf("  Massa salarial estimada...: R$%,.3f mi\n", totalPayroll);
     }
 
     public static void printRegionReport(String[][][] cities, ArrayList<Integer> arrRegionIndexes, int regionType){
@@ -158,29 +158,31 @@ public class Report {
         String countryName = cities[indexes[0]][1][0];
         String regionName = cities[indexes[0]][regionType][0];
 
-        System.out.println("\n=== Relatório completo de " + regionName + " ===\n");
+        if(regionType >= 1) System.out.printf("\n=== Relatório completo de %s ===\n\n", regionName);
+        else System.out.println("\n=== Relatório Geral ===\n");
 
         System.out.println("-- Dados gerais --\n");
 
-        System.out.println("  País .....................: " + countryName);
-        System.out.println("  Estado ...................: " + stateName);
-        System.out.println("  Microrregião .............: " + microregionName);
-        System.out.println("  Quantidade de municípios .: " + qttCities);
-        System.out.printf("  Extensão territorial .....: %.2f km²\n", totalArea);
+        if(regionType >= 1) System.out.printf("  País .....................: %s\n", countryName);
+        if(regionType >= 2) System.out.printf("  Estado ...................: %s\n", stateName);
+        if(regionType >= 3) System.out.printf("  Microrregião .............: %s\n", microregionName);
+        System.out.printf("  Quantidade de municípios .: %,d\n", qttCities);
+        System.out.printf("  Extensão territorial .....: %,.2f km²\n", totalArea);
+        System.out.printf("  Ex. territorial média ....: %,.2f km²\n", avgArea);
         System.out.printf("  População total ..........: %,d hab\n", totalPopulation);
         System.out.printf("  População média ..........: %,.2f hab\n", avgPopulation);
         System.out.printf("  IDH médio ................: %.3f\n", avgHDI);
-        System.out.printf("  PIB total ................: R$%.2f mi\n", totalGDP);
-        System.out.printf("  PIB médio municipal ......: R$%.2f mi\n", avgGDP);
-        System.out.printf("  Renda média municipal ....: R$%.2f\n", avgIncome);
-        System.out.printf("  Renda média ponderada ....: R$%.2f\n", weightedIncome);
-        System.out.printf("  Massa salarial estimada ..: R$%.3f mi\n", totalPayroll / 1e6);
+        System.out.printf("  PIB total ................: R$%,.2f mi\n", totalGDP);
+        System.out.printf("  PIB médio municipal ......: R$%,.2f mi\n", avgGDP);
+        System.out.printf("  Renda média municipal ....: R$%,.2f\n", avgIncome);
+        System.out.printf("  Renda média ponderada ....: R$%,.2f\n", weightedIncome);
+        System.out.printf("  Massa salarial estimada ..: R$%,.3f mi\n", totalPayroll / 1e6);
 
         System.out.println("\n-- Análise dos dados --\n");
 
-        System.out.printf("  Densidade demográfica ....: %.2f hab/km²\n", density);
-        System.out.printf("  PIB per capita ...........: R$%.2f\n", GDPPerCapita);
-        System.out.printf("  PIB por km² ..............: R$%.3f mi\n", GDPPerKm);
+        System.out.printf("  Densidade demográfica ....: %,.2f hab/km²\n", density);
+        System.out.printf("  PIB per capita ...........: R$%,.2f\n", GDPPerCapita);
+        System.out.printf("  PIB por km² ..............: R$%,.3f mi\n", GDPPerKm);
 
         System.out.printf("  Total de homens ..........: %,d\n", totalMen);
         System.out.printf("  Total de mulheres ........: %,d\n", totalWomen);
@@ -197,17 +199,17 @@ public class Report {
         else if(avgHDI < 0.7) HDIClassfication = "Médio";
         else if(avgHDI < 0.8) HDIClassfication = "Alto";
         else HDIClassfication = "Muito alto";
-        System.out.println(HDIClassfication);
+        System.out.printf("%s\n", HDIClassfication);
 
         System.out.println("\n  Distribuição das atividades econômicas:");
 
-        System.out.printf("    Extração ...............: %d municípios (%.2f%%)\n",
+        System.out.printf("    Extração ...............: %,d municípios (%.2f%%)\n",
             extractionCount, 100.0 * extractionCount / qttCities);
 
-        System.out.printf("    Indústria ..............: %d municípios (%.2f%%)\n",
+        System.out.printf("    Indústria ..............: %,d municípios (%.2f%%)\n",
             industryCount, 100.0 * industryCount / qttCities);
 
-        System.out.printf("    Comércio ...............: %d municípios (%.2f%%)\n",
+        System.out.printf("    Comércio ...............: %,d municípios (%.2f%%)\n",
             commerceCount, 100.0 * commerceCount / qttCities);
 
         System.out.println("\n  Análise das faixas etárias:");
@@ -220,22 +222,17 @@ public class Report {
         for(int i=0; i<51; i++){
             double percentage = 100.0 * agePopulation[i] / totalPopulation;
 
-            if(i < 9)
-                minor += percentage;
-            else if(i < 30)
-                adult += percentage;
-            else
-                elderly += percentage;
+            if(i < 9) minor += percentage;
+            else if(i < 30) adult += percentage;
+            else elderly += percentage;
 
             if(agePopulation[i] > agePopulation[predominantAgeGroup])
                 predominantAgeGroup = i;
 
             if(i < 50)
-                System.out.printf("    %d a %d: %.2f%%\n",
-                    2*i, 2*i+2, percentage);
+                System.out.printf("    %d a %d: %.2f%%\n", 2*i, 2*i+2, percentage);
             else
-                System.out.printf("    %d ou mais: %.2f%%\n",
-                    2*i, percentage);
+                System.out.printf("    %d ou mais: %.2f%%\n", 2*i, percentage);
         }
 
         String predominantBand;
@@ -243,15 +240,11 @@ public class Report {
         if(predominantAgeGroup == 50)
             predominantBand = "100 ou mais";
         else
-            predominantBand = predominantAgeGroup * 2 + " a "
-                + (predominantAgeGroup * 2 + 2);
+            predominantBand = predominantAgeGroup * 2 + " a " + (predominantAgeGroup * 2 + 2);
 
-        System.out.printf("\n    Crianças e adolescentes ...: %.2f%%\n", minor);
-        System.out.printf("    Adultos ...................: %.2f%%\n", adult);
-        System.out.printf("    Idosos ....................: %.2f%%\n", elderly);
-
-        System.out.println("    Faixa etária predominante: "
-            + predominantBand + " anos");
+        System.out.printf("    Crianças e adolescentes ...: %,.2f%%\n", minor);
+        System.out.printf("    Adultos ...................: %,.2f%%\n", adult);
+        System.out.printf("    Idosos ....................: %,.2f%%\n", elderly);
 
         System.out.printf("    Faixa etária predominante: %s anos\n", predominantBand);
         
@@ -316,7 +309,7 @@ public class Report {
 
             String cityName = cities[indexes[selected]][4][0];
 
-            System.out.printf("    %d. %-30s: %." + decimals + "f%s\n",
+            System.out.printf("    %d. %-30s: %,." + decimals + "f%s\n",
                 i+1, cityName, selectedValue, unit);
         }
     }
