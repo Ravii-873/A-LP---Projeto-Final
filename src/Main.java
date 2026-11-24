@@ -62,8 +62,7 @@ public class Main {
                     if(j != 11) {
                         cities[i][j] = new String[1];
                         cities[i][j][0] = parsedLine[j];
-                    }
-                    else {
+                    } else {
                         String[] parsedAgeData = parsedLine[j].split("#");
                         cities[i][j] = new String[parsedAgeData.length];
                         for(int k=0; k<cities[i][j].length; k++)
