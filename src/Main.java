@@ -22,11 +22,9 @@ public class Main {
         System.out.println("  2. Relatórios por microrregião");
         System.out.println("  3. Relatórios por UF");
         System.out.println("  4. Relatórios gerais");
-        System.out.println("  5. Encontrar municípios por dados");
-        System.out.println("  6. Encontrar municípios por dados");
         System.out.println("  0. Sair");
         System.out.println();
-        return Utilities.readValidInt(0, 6, emptyIntArray);
+        return Utilities.readValidInt(0, 5, emptyIntArray);
     }
 
     public static int multipleCitiesCase(String[][][] cities, ArrayList<Integer> citiesIndexes){
