@@ -13,6 +13,7 @@ public class Main {
     public static void exit(){
         System.out.println("\n=== Obrigado por utilizar! ===\n");
         scan.close();
+        System.exit(0);
     }
 
     public static int mainMenu(String DBName){
