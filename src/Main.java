@@ -22,7 +22,8 @@ public class Main {
         System.out.println("  1. Relatórios por município");
         System.out.println("  2. Relatórios por microrregião");
         System.out.println("  3. Relatórios por UF");
-        System.out.println("  4. Relatório geral");
+        System.out.println("  4. Relatórios por país");
+        System.out.println("  5. Relatório geral");
         System.out.println("  0. Sair");
         System.out.println();
         return Utilities.readValidInt(0, 5, emptyIntArray);
@@ -105,7 +106,7 @@ public class Main {
                     String microregion = scan.nextLine();
                     ArrayList<Integer> arrMicroregionsIndexes = Utilities.filterType(cities, 3, microregion);
                     if(arrMicroregionsIndexes.size() == 0){
-                        System.out.println("  Esta microrregião não foi encontrado na base de dados!");
+                        System.out.println("  Esta microrregião não foi encontrada na base de dados!");
                         break;
                     }
     
@@ -127,6 +128,19 @@ public class Main {
                     break;
                 }
                 case 4:{
+                    System.out.println("\n=== Insira o nome do país ===");
+                    String state = scan.nextLine();
+                    ArrayList<Integer> arrCountryIndexes = Utilities.filterType(cities, 1, state);
+                    if(arrCountryIndexes.size() == 0){
+                        System.out.println("  Este país não foi encontrado na base de dados!");
+                        break;
+                    }
+    
+                    Report.printRegionReport(cities, arrCountryIndexes, 1);
+
+                    break;
+                }
+                case 5:{
                     ArrayList<Integer> arrIndexes = new ArrayList<>();
                     for(int i=0; i<qttCities; i++)
                         arrIndexes.add(i);
