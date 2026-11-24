@@ -253,25 +253,28 @@ public class Report {
         System.out.println("    Faixa etária predominante: "
             + predominantBand + " anos");
 
+        System.out.printf("    Faixa etária predominante: %s anos\n", predominantBand);
+        
+        final int limit = Math.min(5, qttCities);
         System.out.println("\n-- Rankings municipais --");
 
-        System.out.println("\n  TOP 5 - População:");
-        printRanking(cities, indexes, qttCities, 6, 0, " hab", true);
+        System.out.printf("\n  TOP %d - População:\n", limit);
+        printRanking(cities, indexes, qttCities, limit, 6, 0, " hab", true);
 
-        System.out.println("\n  BOTTOM 5 - População:");
-        printRanking(cities, indexes, qttCities, 6, 0, " hab", false);
+        System.out.printf("\n  BOTTOM %d - População:\n", limit);
+        printRanking(cities, indexes, qttCities, limit, 6, 0, " hab", false);
 
-        System.out.println("\n  TOP 5 - Extensão territorial:");
-        printRanking(cities, indexes, qttCities, 5, 2, " km²", true);
+        System.out.printf("\n  TOP %d - Extensão territorial:\n", limit);
+        printRanking(cities, indexes, qttCities, limit, 5, 2, " km²", true);
 
-        System.out.println("\n  BOTTOM 5 - Extensão territorial:");
-        printRanking(cities, indexes, qttCities, 5, 2, " km²", false);
+        System.out.printf("\n  BOTTOM %d - Extensão territorial:\n", limit);
+        printRanking(cities, indexes, qttCities, limit, 5, 2, " km²", false);
 
-        System.out.println("\n  TOP 5 - IDH:");
-        printRanking(cities, indexes, qttCities, 7, 3, "", true);
+        System.out.printf("\n  TOP %d - IDH:\n", limit);
+        printRanking(cities, indexes, qttCities, limit, 7, 3, "", true);
 
-        System.out.println("\n  BOTTOM 5 - IDH:");
-        printRanking(cities, indexes, qttCities, 7, 3, "", false);
+        System.out.printf("\n  BOTTOM %d - IDH:\n", limit);
+        printRanking(cities, indexes, qttCities, limit, 7, 3, "", false);
 
         System.out.println();
     }
@@ -280,13 +283,13 @@ public class Report {
         String[][][] cities,
         int[] indexes,
         int qttCities,
+        int limit,
         int field,
         int decimals,
         String unit,
         boolean descending
     ){
         boolean[] used = new boolean[qttCities];
-        final int limit = Math.min(5, qttCities);
 
         for(int i=0; i<limit; i++){
             int selected = -1;
