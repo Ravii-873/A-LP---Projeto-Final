@@ -21,7 +21,7 @@ public class Main {
         System.out.println("  1. Relatórios por município");
         System.out.println("  2. Relatórios por microrregião");
         System.out.println("  3. Relatórios por UF");
-        System.out.println("  4. Relatórios gerais");
+        System.out.println("  4. Relatório geral");
         System.out.println("  0. Sair");
         System.out.println();
         return Utilities.readValidInt(0, 5, emptyIntArray);
