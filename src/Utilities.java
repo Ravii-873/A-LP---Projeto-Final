@@ -109,11 +109,6 @@ public class Utilities {
         return readValidInt(1, 13, null);
     }
 
-    // Returns an array of indexes at which the city value
-    // for the specified type is equal to "value".
-    // Ex.: filterString(cities, 2, "RS")
-    // -> returns an array of indexes at which the city's
-    // UF is equal to "RS".
     public static ArrayList<Integer> filterType(String[][][] cities, int type, String value){
         ArrayList<Integer> indexes = new ArrayList<>();
 
