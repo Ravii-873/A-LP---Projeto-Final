@@ -103,15 +103,15 @@ public class Main {
                     break;
                 }
                 case 2:{
-                    // System.out.println("\n=== Insira o nome da microrregião ===");
-                    // String microregion = scan.nextLine();
-                    // ArrayList<Integer> arrMicroregionsIndexes = Utilities.filterType(cities, 3, microregion);
-                    // if(arrMicroregionsIndexes.size() == 0){
-                    //     System.out.println("  Esta microrregião não foi encontrado na base de dados!");
-                    //     break;
-                    // }
+                    System.out.println("\n=== Insira o nome da microrregião ===");
+                    String microregion = scan.nextLine();
+                    ArrayList<Integer> arrMicroregionsIndexes = Utilities.filterType(cities, 3, microregion);
+                    if(arrMicroregionsIndexes.size() == 0){
+                        System.out.println("  Esta microrregião não foi encontrado na base de dados!");
+                        break;
+                    }
     
-                    // Report.printRegionReport(cities, a);
+                    Report.printRegionReport(cities, arrMicroregionsIndexes, 3);
 
                     break;
                 }
