@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Report {
     public static void printCityReport(String[][][] cities, int index){
         String[][] city = cities[index];
@@ -80,5 +82,239 @@ public class Report {
         System.out.println("    Faixa etária predominante: " + predominantAGBand + " anos\n");
 
         System.out.printf("  Massa salarial estimada...: R$%.3f mi\n", totalPayroll);
+    }
+
+    public static void printRegionReport(String[][][] cities, ArrayList<Integer> arrRegionIndexes, int regionType){
+        int[] indexes = new int[arrRegionIndexes.size()];
+        int qttCities = 0;
+
+        for(int i=0; i<arrRegionIndexes.size(); i++){
+            int index = arrRegionIndexes.get(i);
+
+            indexes[qttCities] = index;
+            qttCities++;
+        }
+
+        double totalArea = 0;
+        int totalPopulation = 0;
+        double totalHDI = 0;
+        double totalGDP = 0;
+        double totalIncome = 0;
+        double totalPayroll = 0;
+        long totalWomen = 0;
+
+        int extractionCount = 0;
+        int industryCount = 0;
+        int commerceCount = 0;
+
+        double[] agePopulation = new double[51];
+
+        for(int i=0; i<arrRegionIndexes.size(); i++){
+            String[][] city = cities[indexes[i]];
+
+            double area = Double.parseDouble(city[5][0]);
+            int population = Integer.parseInt(city[6][0]);
+            double HDI = Double.parseDouble(city[7][0]);
+            double GDP = Double.parseDouble(city[8][0]);
+            double income = Double.parseDouble(city[10][0]);
+            int women = Integer.parseInt(city[12][0]);
+
+            totalArea += area;
+            totalPopulation += population;
+            totalHDI += HDI;
+            totalGDP += GDP;
+            totalIncome += income;
+            totalPayroll += population * income;
+            totalWomen += women;
+
+            if(city[9][0].equals("Extração"))
+                extractionCount++;
+            else if(city[9][0].equals("Indústria"))
+                industryCount++;
+            else if(city[9][0].equals("Comércio"))
+                commerceCount++;
+
+            for(int j=0; j<51; j++){
+                double percentage = Double.parseDouble(city[11][j]);
+                agePopulation[j] += population * percentage / 100.0;
+            }
+        }
+
+        double avgPopulation = (double) totalPopulation / qttCities;
+        double avgArea = totalArea / qttCities;
+        double avgHDI = totalHDI / qttCities;
+        double avgGDP = totalGDP / qttCities;
+        double avgIncome = totalIncome / qttCities;
+        double weightedIncome = totalPayroll / totalPopulation;
+
+        double density = totalPopulation / totalArea;
+        double GDPPerCapita = totalGDP * 1e6 / totalPopulation;
+        double GDPPerKm = totalGDP / totalArea;
+
+        long totalMen = totalPopulation - totalWomen;
+
+        String microregionName = cities[indexes[0]][3][0];
+        String stateName = cities[indexes[0]][2][0];
+        String countryName = cities[indexes[0]][1][0];
+        String regionName = cities[indexes[0]][regionType][0];
+
+        System.out.println("\n=== Relatório completo de " + regionName + " ===\n");
+
+        System.out.println("-- Dados gerais --\n");
+
+        System.out.println("  País .....................: " + countryName);
+        System.out.println("  Estado ...................: " + stateName);
+        System.out.println("  Microrregião .............: " + microregionName);
+        System.out.println("  Quantidade de municípios .: " + qttCities);
+        System.out.printf("  Extensão territorial .....: %.2f km²\n", totalArea);
+        System.out.printf("  População total ..........: %,d hab\n", totalPopulation);
+        System.out.printf("  População média ..........: %,.2f hab\n", avgPopulation);
+        System.out.printf("  IDH médio ................: %.3f\n", avgHDI);
+        System.out.printf("  PIB total ................: R$%.2f mi\n", totalGDP);
+        System.out.printf("  PIB médio municipal ......: R$%.2f mi\n", avgGDP);
+        System.out.printf("  Renda média municipal ....: R$%.2f\n", avgIncome);
+        System.out.printf("  Renda média ponderada ....: R$%.2f\n", weightedIncome);
+        System.out.printf("  Massa salarial estimada ..: R$%.3f mi\n", totalPayroll / 1e6);
+
+        System.out.println("\n-- Análise dos dados --\n");
+
+        System.out.printf("  Densidade demográfica ....: %.2f hab/km²\n", density);
+        System.out.printf("  PIB per capita ...........: R$%.2f\n", GDPPerCapita);
+        System.out.printf("  PIB por km² ..............: R$%.3f mi\n", GDPPerKm);
+
+        System.out.printf("  Total de homens ..........: %,d\n", totalMen);
+        System.out.printf("  Total de mulheres ........: %,d\n", totalWomen);
+
+        System.out.printf("  %.2f%% Homens X Mulheres %.2f%%\n",
+            100.0 * totalMen / totalPopulation,
+            100.0 * totalWomen / totalPopulation);
+
+        System.out.printf("  Classificação do IDH médio (%.3f): ",
+            avgHDI);
+
+        String HDIClassfication = " --- ";
+        if(avgHDI < 0.55) HDIClassfication = "Baixo";
+        else if(avgHDI < 0.7) HDIClassfication = "Médio";
+        else if(avgHDI < 0.8) HDIClassfication = "Alto";
+        else HDIClassfication = "Muito alto";
+        System.out.println(HDIClassfication);
+
+        System.out.println("\n  Distribuição das atividades econômicas:");
+
+        System.out.printf("    Extração ...............: %d municípios (%.2f%%)\n",
+            extractionCount, 100.0 * extractionCount / qttCities);
+
+        System.out.printf("    Indústria ..............: %d municípios (%.2f%%)\n",
+            industryCount, 100.0 * industryCount / qttCities);
+
+        System.out.printf("    Comércio ...............: %d municípios (%.2f%%)\n",
+            commerceCount, 100.0 * commerceCount / qttCities);
+
+        System.out.println("\n  Análise das faixas etárias:");
+
+        double minor = 0;
+        double adult = 0;
+        double elderly = 0;
+        int predominantAgeGroup = 0;
+
+        for(int i=0; i<51; i++){
+            double percentage = 100.0 * agePopulation[i] / totalPopulation;
+
+            if(i < 9)
+                minor += percentage;
+            else if(i < 30)
+                adult += percentage;
+            else
+                elderly += percentage;
+
+            if(agePopulation[i] > agePopulation[predominantAgeGroup])
+                predominantAgeGroup = i;
+
+            if(i < 50)
+                System.out.printf("    %d a %d: %.2f%%\n",
+                    2*i, 2*i+2, percentage);
+            else
+                System.out.printf("    %d ou mais: %.2f%%\n",
+                    2*i, percentage);
+        }
+
+        String predominantBand;
+
+        if(predominantAgeGroup == 50)
+            predominantBand = "100 ou mais";
+        else
+            predominantBand = predominantAgeGroup * 2 + " a "
+                + (predominantAgeGroup * 2 + 2);
+
+        System.out.printf("\n    Crianças e adolescentes ...: %.2f%%\n", minor);
+        System.out.printf("    Adultos ...................: %.2f%%\n", adult);
+        System.out.printf("    Idosos ....................: %.2f%%\n", elderly);
+
+        System.out.println("    Faixa etária predominante: "
+            + predominantBand + " anos");
+
+        System.out.println("\n-- Rankings municipais --");
+
+        System.out.println("\n  TOP 5 - População:");
+        printRanking(cities, indexes, qttCities, 6, 0, " hab", true);
+
+        System.out.println("\n  BOTTOM 5 - População:");
+        printRanking(cities, indexes, qttCities, 6, 0, " hab", false);
+
+        System.out.println("\n  TOP 5 - Extensão territorial:");
+        printRanking(cities, indexes, qttCities, 5, 2, " km²", true);
+
+        System.out.println("\n  BOTTOM 5 - Extensão territorial:");
+        printRanking(cities, indexes, qttCities, 5, 2, " km²", false);
+
+        System.out.println("\n  TOP 5 - IDH:");
+        printRanking(cities, indexes, qttCities, 7, 3, "", true);
+
+        System.out.println("\n  BOTTOM 5 - IDH:");
+        printRanking(cities, indexes, qttCities, 7, 3, "", false);
+
+        System.out.println();
+    }
+
+    public static void printRanking(
+        String[][][] cities,
+        int[] indexes,
+        int qttCities,
+        int field,
+        int decimals,
+        String unit,
+        boolean descending
+    ){
+        boolean[] used = new boolean[qttCities];
+        final int limit = Math.min(5, qttCities);
+
+        for(int i=0; i<limit; i++){
+            int selected = -1;
+            double selectedValue = 0;
+
+            for(int j=0; j<qttCities; j++){
+                if(used[j])
+                    continue;
+
+                double value = Double.parseDouble(
+                    cities[indexes[j]][field][0]
+                );
+
+                if(selected == -1
+                    || (descending && value > selectedValue)
+                    || (!descending && value < selectedValue)){
+
+                    selected = j;
+                    selectedValue = value;
+                }
+            }
+
+            used[selected] = true;
+
+            String cityName = cities[indexes[selected]][4][0];
+
+            System.out.printf("    %d. %-30s: %." + decimals + "f%s\n",
+                i+1, cityName, selectedValue, unit);
+        }
     }
 }
