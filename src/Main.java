@@ -97,7 +97,7 @@ public class Main {
                     }
     
                     int cityIndex = arrCitiesIndexes.get(wishedIndex);
-                    Report.printCityReport(cities, cityIndex);
+                    Reports.printCityReport(cities, cityIndex);
 
                     break;
                 }
@@ -110,7 +110,7 @@ public class Main {
                         break;
                     }
     
-                    Report.printRegionReport(cities, arrMicroregionsIndexes, 3);
+                    Reports.printRegionReport(cities, arrMicroregionsIndexes, 3);
 
                     break;
                 }
@@ -123,7 +123,7 @@ public class Main {
                         break;
                     }
     
-                    Report.printRegionReport(cities, arrStatesIndexes, 2);
+                    Reports.printRegionReport(cities, arrStatesIndexes, 2);
 
                     break;
                 }
@@ -136,7 +136,7 @@ public class Main {
                         break;
                     }
     
-                    Report.printRegionReport(cities, arrCountryIndexes, 1);
+                    Reports.printRegionReport(cities, arrCountryIndexes, 1);
 
                     break;
                 }
@@ -145,7 +145,7 @@ public class Main {
                     for(int i=0; i<qttCities; i++)
                         arrIndexes.add(i);
     
-                    Report.printRegionReport(cities, arrIndexes, 0);
+                    Reports.printRegionReport(cities, arrIndexes, 0);
 
                     break;
                 }

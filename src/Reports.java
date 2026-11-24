@@ -1,6 +1,6 @@
 import java.util.ArrayList;
 
-public class Report {
+public class Reports {
     public static void printCityReport(String[][][] cities, int index){
         String[][] city = cities[index];
         double area = Double.parseDouble(city[5][0]);
